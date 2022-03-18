@@ -29,16 +29,18 @@ public class HandPresence : MonoBehaviour
 
 		foreach (var item in devices)
 		{
-			Debug.Log(item.name + item.characteristics);
+			//Prefab Name
+			Debug.Log(item.name + " " + controllerCharacteristics);
 		}
 
 		if (devices.Count > 0)
 		{
 			targetDevice = devices[0];
-			GameObject prefab = controllerPrefabs.Find(controller => controller.name == targetDevice.name + targetDevice.characteristics);
+			//Debug.Log(targetDevice.name + targetDevice.characteristics);
+			GameObject prefab = controllerPrefabs.Find(controller => controller.name == targetDevice.name + " " + controllerCharacteristics);
 			if (prefab)
 			{
-				spawnedController = Instantiate(prefab, transform);
+				spawnedController = Instantiate(prefab, transform); 
 			}
 			else
 			{
@@ -79,7 +81,7 @@ public class HandPresence : MonoBehaviour
 		}
 		else
 		{
-			if (showController)
+			if (!showController)
 			{
 				spawnedHandModel.SetActive(false);
 				spawnedController.SetActive(true);
@@ -87,8 +89,8 @@ public class HandPresence : MonoBehaviour
 			else
 			{
 				spawnedHandModel.SetActive(true);
-				spawnedController.SetActive(false);
-				UpdateHandAnimation();
+				//spawnedController.SetActive(false);
+				//UpdateHandAnimation();
 			}
 		}
 	}
