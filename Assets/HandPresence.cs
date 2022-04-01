@@ -89,8 +89,8 @@ public class HandPresence : MonoBehaviour
 			else
 			{
 				spawnedHandModel.SetActive(true);
-				//spawnedController.SetActive(false);
-				//UpdateHandAnimation();
+				spawnedController.SetActive(false);
+				UpdateHandAnimation();
 			}
 		}
 	}
