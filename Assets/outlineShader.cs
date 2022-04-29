@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
+[RequireComponent(typeof(XRGrabInteractable))]
 public class outlineShader : MonoBehaviour
 {
     public Renderer Renderer;
@@ -12,7 +14,6 @@ public class outlineShader : MonoBehaviour
     MaterialPropertyBlock Block;
 
     int HighlightActiveID;
-
     
     // Start is called before the first frame update
     void Start()
@@ -22,14 +23,14 @@ public class outlineShader : MonoBehaviour
         Block = new MaterialPropertyBlock();
         Block.SetFloat(HighlightActiveID, Highlighted);
         Renderer.SetPropertyBlock(Block);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+        // get reference to XR component
+        XRGrabInteractable grab = GetComponent<XRGrabInteractable>();
+        grab.hoverEntered.AddListener(HoverEnter);
+        grab.hoverExited.AddListener(HoverExit);
     }
-    public void HoverEnter(){
+    public void HoverEnter(HoverEnterEventArgs args){
         Highlighted = 1;
 
         Renderer.GetPropertyBlock(Block);
@@ -37,7 +38,7 @@ public class outlineShader : MonoBehaviour
         Renderer.SetPropertyBlock(Block);
     }
 
-    public void HoverExit(){
+    public void HoverExit(HoverExitEventArgs args){
         Highlighted = 0;
 
         Renderer.GetPropertyBlock(Block);
